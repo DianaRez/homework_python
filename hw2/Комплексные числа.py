@@ -3,7 +3,7 @@ class complex:
     a = 0
     b = 0
 
-    def __init__(self, x, y):
+    def __init__(self, x=0, y=0):
         self.set(x, y)
 
     def set(self, x, y):
@@ -24,7 +24,7 @@ class complex:
         else:
             phi = math.atan(self.b / self.a)
 
-        return str(round(r,2))+'*exp^(i*' + str(round(phi, 2)) + ")"
+        return str(round(r, 2))+'*exp^(i*' + str(round(phi, 2)) + ")"
 
 
     def convert_v_alg(self):
@@ -65,6 +65,7 @@ sub = complex(0, 0)
 x = complex(1,1)
 y = complex(1,1)
 
+print(x.convert_v_exp())
 print(x.convert_v_alg())
 print(summa(x,y))
 print(subtraction(x, y))
