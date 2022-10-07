@@ -38,25 +38,53 @@ class complex:
         return self.x, self.y
 
     def __add__(self, other):
-        return self.a + other.a, self.b + other.b
+        if type(other) is int or float:
+            return self.a + other, self.b
+        else:
+            return self.a + other.a, self.b + other.b
 
     def __radd__(self, other):
+        if type(other) is int or float:
+            return self.a + other, self.b
         return self.a + other.a, self.b + other.b
 
     def __sub__(self, other):
-        return self.a - other.a, self.b - other.b
+        if type(other) is int or float:
+            return self.a - other, self.b
+        else:
+            return self.a - other.a, self.b - other.b
+
+    def __rsub__(self, other):
+        if type(other) is int or float:
+            return other - self.a, self.b
+        else:
+            return other.a - self.a, other.b - self.b
 
     def __mul__(self, other):
-        return self.a * other.a - self.b * other.b, self.a * other.b + self.b * other.a
+        if other.b == 0:
+            return self.a * other, self.b * other
+        else:
+            return self.a * other.a - self.b * other.b, self.a * other.b + self.b * other.a
+
+    def __rmul__(self, other):
+        if type(other) is int or float:
+            return self.a * other, self.b * other
+        else:
+            return other.a * self.a - other.b * self.b, other.a * self.b + other.b * self.a
 
     def __floordiv__(self, other):
-        return (self.a * other.a + self.b * other.b) / (other.a ** 2 + other.b ** 2), (self.b * other.a - self.a * other.b) / (other.a ** 2 + other.b ** 2)
+        if other.b == 0:
+            return round(self.a/other.a, 2), round(self.b/other.a, 2)
+        else:
+            return (self.a * other.a + self.b * other.b) / (other.a ** 2 + other.b ** 2), (self.b * other.a - self.a * other.b) / (other.a ** 2 + other.b ** 2)
+
+    def __rfloordiv__(self, other):
+        if other.b == 0:
+            return round(other.a/self.a, 2), round(other.a/self.b, 2)
+        return (other.a * self.a + other.b * self.b) / (self.a ** 2 + self.b ** 2), (other.b * self.a - other.a * self.b) / (self.a ** 2 + self.b ** 2)
 
     def __str__(self, exp = False):
-        if exp == True:
-            return str(round(self.a, 2)) + '*exp^(i*' + str(round(self.b, 2)) + ")"
-        else:
-            return str(round(self.a, 2)) + "+i*" + str(round(self.b, 2))
+            return str(round(self.a, 2)) + "+i*" + str(round(self.b, 2)) + '   '+ str(round(self.convert_v_exp()[0], 2)) + '*exp^(i*' + str(round(self.convert_v_exp()[1], 2)) + ")"
 
     def __eq__(self, other):
         if self.a == other.a and self.b == other.b:
@@ -67,6 +95,17 @@ class complex:
     def __abs__(self):
         return (self.a**2 + self.b**2)**0.5
 
+    def __getitem__(self, key):
+        if key == 0:
+            return self.a
+        elif key == 1:
+            return self.b
+
+    def __setitem__(self, key, value):
+        if key == 0:
+            self.a = value
+        elif key == 1:
+            self.b = value
 
 
 
@@ -75,14 +114,19 @@ class complex:
 
 x = complex(1,1)
 y = complex(1,5)
+#x[0] = 5
+#print(x[0])
 print(x+y)
 print(x-y)
 print(x*y)
 print(x//y)
 print(x==y)
 print(abs(x))
+print(x*5)
+print(y)
 
 x.convert_v_exp()
-print(x, y)
+print(x.get())
+
 
 
