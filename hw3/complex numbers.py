@@ -90,12 +90,10 @@ class complex:
             return str(round(self.a, 2)) + "+i*" + str(round(self.b, 2)) + '   '+ str(round(self.convert_v_exp()[0], 2)) + '*exp^(i*' + str(round(self.convert_v_exp()[1], 2)) + ")"
 
     def __eq__(self, other):
-        if isinstance(other, numbers.Number) and self.a == other and self.b == 0:
-            return True
-        elif self.a == other.a and self.b == other.b:
-            return True
+        if isinstance(other, numbers.Number):
+            return (self.a == other and self.b == 0)
         else:
-            return False
+            return self.a == other.a and self.b == other.b
 
     def __abs__(self):
         return (self.a**2 + self.b**2)**0.5
@@ -117,15 +115,15 @@ class complex:
 
 
 
-x = complex(1,1)
-y = complex(1,1)
+x = complex(1,0)
+y = complex(1,5)
 #x[0] = 5
 #print(x[0])
 print(x+y)
 print(x-y)
 print(x*y)
 print(x//y)
-print( x==y )
+print( x==1 )
 print(abs(x))
 print(x*0.5)
 print(5*x)
