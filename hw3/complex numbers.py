@@ -90,7 +90,9 @@ class complex:
             return str(round(self.a, 2)) + "+i*" + str(round(self.b, 2)) + '   '+ str(round(self.convert_v_exp()[0], 2)) + '*exp^(i*' + str(round(self.convert_v_exp()[1], 2)) + ")"
 
     def __eq__(self, other):
-        if self.a == other.a and self.b == other.b:
+        if isinstance(other, numbers.Number) and self.a == other and self.b == 0:
+            return True
+        elif self.a == other.a and self.b == other.b:
             return True
         else:
             return False
