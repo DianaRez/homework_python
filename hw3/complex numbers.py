@@ -1,4 +1,7 @@
 import math
+import numbers
+
+
 class complex:
 
     def __init__(self, x = 0, y = 0):
@@ -38,49 +41,49 @@ class complex:
         return self.x, self.y
 
     def __add__(self, other):
-        if type(other) is int or float:
+        if isinstance(other, numbers.Number):
             return self.a + other, self.b
         else:
             return self.a + other.a, self.b + other.b
 
     def __radd__(self, other):
-        if type(other) is int or float:
+        if isinstance(other, numbers.Number):
             return self.a + other, self.b
         return self.a + other.a, self.b + other.b
 
     def __sub__(self, other):
-        if type(other) is int or float:
+        if isinstance(other, numbers.Number):
             return self.a - other, self.b
         else:
             return self.a - other.a, self.b - other.b
 
     def __rsub__(self, other):
-        if type(other) is int or float:
+        if isinstance(other, numbers.Number):
             return other - self.a, self.b
         else:
             return other.a - self.a, other.b - self.b
 
     def __mul__(self, other):
-        if other.b == 0:
+        if isinstance(other, numbers.Number):
             return self.a * other, self.b * other
         else:
             return self.a * other.a - self.b * other.b, self.a * other.b + self.b * other.a
 
     def __rmul__(self, other):
-        if type(other) is int or float:
+        if isinstance(other, numbers.Number):
             return self.a * other, self.b * other
         else:
             return other.a * self.a - other.b * self.b, other.a * self.b + other.b * self.a
 
     def __floordiv__(self, other):
-        if other.b == 0:
+        if isinstance(other, numbers.Number):
             return round(self.a/other.a, 2), round(self.b/other.a, 2)
         else:
             return (self.a * other.a + self.b * other.b) / (other.a ** 2 + other.b ** 2), (self.b * other.a - self.a * other.b) / (other.a ** 2 + other.b ** 2)
 
     def __rfloordiv__(self, other):
-        if other.b == 0:
-            return round(other.a/self.a, 2), round(other.a/self.b, 2)
+        if isinstance(other, numbers.Number):
+            return round(other/self.a, 2), round(other/self.b, 2)
         return (other.a * self.a + other.b * self.b) / (self.a ** 2 + self.b ** 2), (other.b * self.a - other.a * self.b) / (self.a ** 2 + self.b ** 2)
 
     def __str__(self, exp = False):
@@ -113,17 +116,19 @@ class complex:
 
 
 x = complex(1,1)
-y = complex(1,5)
+y = complex(1,1)
 #x[0] = 5
 #print(x[0])
 print(x+y)
 print(x-y)
 print(x*y)
 print(x//y)
-print(x==y)
+print( x==y )
 print(abs(x))
-print(x*5)
+print(x*0.5)
+print(5*x)
 print(y)
+print(0.5 + x)
 
 x.convert_v_exp()
 print(x.get())
