@@ -36,8 +36,8 @@ class List:
             self.append(collections)
 
         elif isinstance(collections, list):
-            for i in range(len(collections)):
-                self.append(i)
+            for j in collections:
+                self.append(j)
 
     def __len__(self):
         return self._length
@@ -63,7 +63,7 @@ class List:
                 curr_pointer = curr_pointer.get_next()
         else:
             curr_pointer = self._finish_pointer
-            for j in range(len(self) - i):
+            for j in range(len(self) - i - 1):
                 curr_pointer = curr_pointer.get_prev()
 
         return curr_pointer.get_value()
@@ -99,14 +99,16 @@ class List:
             if j >= i:
                 t.append(self[j+1])
         self = t
-        print(self)
         return res
 
 
 
 
 
-A = List([6,8,9])
+A = List(5)
 for i in range(5):
     A.append(i)
+
 print(A)
+a = A.pop(3)
+print(a)
