@@ -22,9 +22,6 @@ class Shape:
     def __init__(self, type = 'Shape'):
         self._type = type
 
-    # def __str__(self):
-    #     return str(self._type)
-    #
     def __str__(self):
         return (str(self._type) + "   Area:  " + str(self.area()) + "   Perimeter:  " +  str(self.perimeter()))
 
@@ -41,8 +38,6 @@ class Circle(Shape):
     def perimeter(self):
         return round( 2 * 3.14 * length(self._o, self._r), 2)
 
-    # def __str__(self):
-    #     return (super().__str__() + "   Area:  " + str(self.area()) + "   Perimeter:  " +  str(self.perimeter()))
 
 class Triangle(Shape):
 
@@ -62,9 +57,6 @@ class Triangle(Shape):
         a = self.perimeter()/2
         return round((a * (a - self._dist1) * (a - self._dist2) * (a - self._dist3)) ** 0.5, 2)
 
-    # def __str__(self):
-    #     return (super().__str__() + "   Area:  " + str(self.area()) + "   Perimeter:  " +  str(self.perimeter()))
-
 class Quadrangle(Shape):
 
     def __init__(self, p1, p2, p3, p4, type = "Quadrangle"):
@@ -81,8 +73,6 @@ class Quadrangle(Shape):
     def perimeter(self):
         return round(self._dist1 + self._dist2 + self._dist3 + self._dist4, 2)
 
-    # def __str__(self):
-    #     return (super().__str__() + "   Area:  " + str(self.area()) + "   Perimeter:  " +  str(self.perimeter()))
 
 class Rectangle(Quadrangle):
     def __init__(self, p1, p2, p3, p4, type = "Rectangle"):
