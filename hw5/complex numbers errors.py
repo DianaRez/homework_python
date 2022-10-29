@@ -8,14 +8,14 @@ class complex:
         self.set(x, y)
 
     def set(self, x, y):
-        try:
-            if isinstance(x, numbers.Number) and isinstance(y, numbers.Number):
-                self.a = x
-                self.b = y
-            else:
-                raise ValueError
-        except ValueError:
-            print("enter a numbers!")
+        if isinstance(x, numbers.Number) and isinstance(y, numbers.Number):
+            self.a = x
+            self.b = y
+        else:
+            raise ValueError
+
+
+
 
     def get(self, exp = False):
         if exp == True:
@@ -26,17 +26,23 @@ class complex:
 
 
     def convert_v_exp(self):
-        self.r = (self.a**2 + self.b**2)**0.5
-        if self.a < 0 and self.b > 0:
-            self.phi = math.pi - math.atan(abs(self.b) / abs(self.a))
-        elif self.a < 0 and self.b < 0:
-            self.phi = math.pi + math.atan(abs(self.b) / abs(self.a))
-        elif self.a > 0 and self.b < 0:
-            self.phi = - math.atan(self.b/self.a)
-        else:
-            self.phi = math.atan(self.b / self.a)
+            if self.a == 0:
+                raise Exception("Невозможно перевести в экспоненциальную форму, введите другое число")
+            self.r = (self.a**2 + self.b**2)**0.5
+            if self.a < 0 and self.b > 0:
+                # try:
+                self.phi = math.pi - math.atan(abs(self.b) / abs(self.a))
+                # except ZeroDivisionError:
+                #     raise Exception("Невозможно перевести в экспоненциальную форму, введите другое число")
+            elif self.a < 0 and self.b < 0:
+                    self.phi = math.pi + math.atan(abs(self.b) / abs(self.a))
+            elif self.a > 0 and self.b < 0:
+                    self.phi = - math.atan(self.b/self.a)
+            else:
+                self.phi = math.atan(self.b / self.a)
 
-        return self.r, self.phi
+            return self.r, self.phi
+
 
     def convert_v_alg(self):
         self.r = self.a
@@ -83,14 +89,14 @@ class complex:
 
     def __floordiv__(self, other):
         if isinstance(other, numbers.Number):
-            return round(self.a/other.a, 2), round(self.b/other.a, 2)
+            return round(self.a / other.a, 2), round(self.b / other.a, 2)
         else:
-            return (self.a * other.a + self.b * other.b) / (other.a ** 2 + other.b ** 2), (self.b * other.a - self.a * other.b) / (other.a ** 2 + other.b ** 2)
+            return round((self.a * other.a + self.b * other.b) / (other.a ** 2 + other.b ** 2), 2), round((self.b * other.a - self.a * other.b) / (other.a ** 2 + other.b ** 2), 2)
 
     def __rfloordiv__(self, other):
         if isinstance(other, numbers.Number):
-            return round(other/self.a, 2), round(other/self.b, 2)
-        return (other.a * self.a + other.b * self.b) / (self.a ** 2 + self.b ** 2), (other.b * self.a - other.a * self.b) / (self.a ** 2 + self.b ** 2)
+            return round(other / self.a, 2), round(other / self.b, 2)
+        return round((other.a * self.a + other.b * self.b) / (self.a ** 2 + self.b ** 2), 2), round((other.b * self.a - other.a * self.b) / (self.a ** 2 + self.b ** 2), 2)
 
     def __str__(self, exp = False):
             return str(round(self.a, 2)) + "+i*" + str(round(self.b, 2)) + '   '+ str(round(self.convert_v_exp()[0], 2)) + '*exp^(i*' + str(round(self.convert_v_exp()[1], 2)) + ")"
@@ -102,7 +108,7 @@ class complex:
             return self.a == other.a and self.b == other.b
 
     def __abs__(self):
-        return (self.a**2 + self.b**2)**0.5
+        return round((self.a**2 + self.b**2) ** 0.5, 2)
 
     def __getitem__(self, key):
         if key == 0:
@@ -120,19 +126,19 @@ class complex:
 
 
 
-a = complex([], 6)
-x = complex(1,0)
-y = complex(1,5)
+# a = complex([], 6)
+x = complex(1, 1)
+y = complex(1, 5)
 #x[0] = 5
 #print(x[0])
-print(x+y)
-print(x-y)
-print(x*y)
-print(x//y)
-print( x==1 )
+print(x + y)
+print(x - y)
+print(x * y)
+print(x // y)
+print(x == 1)
 print(abs(x))
-print(x*0.5)
-print(5*x)
+print(x * 0.5)
+print(5 * x)
 print(y)
 print(0.5 + x)
 
