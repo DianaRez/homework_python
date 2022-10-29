@@ -115,18 +115,22 @@ class complex:
             return self.a
         elif key == 1:
             return self.b
+        else:
+            raise ValueError
 
     def __setitem__(self, key, value):
         if key == 0:
             self.a = value
         elif key == 1:
             self.b = value
+        else:
+            raise ValueError
 
 
 
 
 
-# a = complex([], 6)
+a = complex([], 6)
 x = complex(1, 1)
 y = complex(1, 5)
 #x[0] = 5
