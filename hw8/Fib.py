@@ -1,12 +1,13 @@
 import time
 from functools import lru_cache
 
+dict = {}
+
 def time_decorator(func):
     def wrapper(*args, **kwargs):
-
         start_time = time.time()
         res = func(*args, **kwargs)
-        print(time.time() - start_time)
+        dict[func] = (time.time() - start_time)
         return res
     return wrapper
 
@@ -23,8 +24,24 @@ def fib_din(n):
             a, b = b, a + b
         return b
 
-# @time_decorator
-# @lru_cache(maxsize=None)
+
+def fib_rec_1(n):
+    if n < 1:
+        raise ValueError
+    if n == 1:
+        return 0
+    if n == 2:
+        return 1
+    else:
+        return fib_rec_1(n-1) + fib_rec_1(n-2)
+
+@time_decorator
+def Fib_rec(n):
+    return fib_rec_1(n)
+
+
+
+@lru_cache(maxsize=None)
 def fib_rec(n):
     if n < 1:
         raise ValueError
@@ -35,7 +52,35 @@ def fib_rec(n):
     else:
         return fib_rec(n-1) + fib_rec(n-2)
 
-# как сделать так, чтобы сначала время без кэша, а потом с кэшом???????
+@time_decorator
+def Fib_rec_cache(n):
+    return fib_rec(n)
+
+
+
+
+
+Fib_rec(35)
+Fib_rec_cache(35)
+fib_din(35)
+
+max = 0
+min = 10000
+for i in dict:
+    if dict[i] > max:
+        max = dict[i]
+    if dict[i] < min:
+        min = dict[i]
+    else:
+        middle = dict[i]
+
+time = {"max time" : [[s for s in dict if dict[s] == max], str(max)], "middle time": [[s for s in dict if dict[s] == middle], middle], "min time": [[s for s in dict if dict[s] == min], min]}
+
+print(time)
+
+
+
+
 
 
 
